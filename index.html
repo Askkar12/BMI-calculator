@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+<div class="container">
+    <h1> BMI Calculator</h1>
+
+    <form id="calculator" onsubmit="return submitbutton()">
+        <div class="weight">
+        <label for="weight">Weight (kg)</label>
+        <input type="number" id="weight" class="form-control" maxlength="3" >
+        
+    </div>
+        <div class="height">
+        <label for="height">Height (cm)</label>
+        <input type="number" id="height" class="form-control" min="1" max="3">
+    </div>
+    <div class="buttons" >
+        <button type="reset" class="me-5 ms-3 bg-dark" onclick="reset123()">  Reset</button>
+        <button type="submit" onclick="submitbutton()"> Submit</button>
+    </div>
+    </form>
+
+    <section class="output mt-3">
+        <h3>your BMI is</h3>
+        <p id="bmi">0</p>
+        <p id="desc">N/A</p>
+         
+    </section>
+
+    <section class="bmi-scale">
+        <div style="--color:var(--Underweight)">
+            <h4>Underweight</h4>
+            <p>&lt;18.5</p>
+        </div>
+        <div style="--color:var(--Normal)">
+            <h4>Normal</h4>
+            <p>18.5-25</p>
+        </div>
+        <div style="--color:var(--Overweight)">
+            <h4>Overweight</h4>
+            <p>25-30</p>
+        </div>
+        <div style="--color:var(--Obese)">
+            <h4>Obese</h4>
+            <p>&#8805 30</p>
+        </div>
+        
+    </section>
+</div>
+
+
+<script>
+   
+   function submitbutton() {
+        
+        var weight = document.getElementById('weight').value;
+        var height = document.getElementById('height').value;
+
+
+        if (weight === "" || height === "" || weight <= 0 || height <= 0) {
+            alert("Please enter valid details");
+            return false; 
+        }
+
+        
+        height = height / 100;
+        weight = parseFloat(weight);
+
+        var bmi = weight / (height * height);
+
+        
+        document.getElementById('bmi').innerText = bmi.toFixed(2);
+
+        
+        var desc;
+        if (bmi < 18.5) {
+            desc = "Underweight";
+        } else if (bmi >= 18.5 && bmi < 25) {
+            desc = "Normal weight";
+        } else if (bmi >= 25 && bmi < 30) {
+            desc = "Overweight";
+        } else {
+            desc = "Obese";
+        }
+        document.getElementById('desc').innerText = desc;
+
+        return false; 
+    }
+
+     function reset123() {
+        document.getElementById('weight').value = '';
+        document.getElementById('height').value = '';
+        document.getElementById('bmi').innerText = '0';
+        document.getElementById('desc').innerText = 'N/A';
+    }
+</script>
+
+
+
+
+</body>
+</html>
